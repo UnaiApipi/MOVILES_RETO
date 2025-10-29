@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div style="display: flex; justify-content: space-between; align-items:center; width:100%;">
+      <ion-title>Contact Create</ion-title>
+
+      <!-- Botón Back siempre visible -->
+      <ion-button (click)="goBack()">Back</ion-button>
+     
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+
+  <!-- Modo edición -->
+  <div style="padding: 20px;">
+    <h2>Create Contact</h2>
+
+    <ion-item>
+      <ion-label position="stacked">Name</ion-label>
+      <ion-input [(ngModel)]="name" placeholder="Enter name">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="email" placeholder="Enter email">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Phone</ion-label>
+      <ion-input type="tel" [(ngModel)]="phone" placeholder="Enter phone">
+      </ion-input>
+    </ion-item>
+
+
+    <div style="margin-top:16px;">
+      <ion-button expand="block" color="primary" (click)="addContact()">Save</ion-button>
+    </div>
+  </div>
+
+
+</ion-content>

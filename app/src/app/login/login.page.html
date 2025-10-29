@@ -1,0 +1,14 @@
+
+<div style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+
+  <ion-card style="width: 350px; padding: 0px 20px 20px 20px;">
+    <h2>Login</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <ion-label>Username</ion-label>
+      <input [(ngModel)]="username" name="username" type="text" />
+      <ion-label>Password</ion-label>
+      <input [(ngModel)]="password" name="password" type="password" />
+      <ion-button expand="full" (click)="onSubmit()">Login</ion-button>
+    </div>
+  </ion-card>
+</div>

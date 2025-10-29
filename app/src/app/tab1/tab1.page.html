@@ -1,17 +1,35 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <div style="display: flex; justify-content: space-between; padding-right: 10px;">
+
+      <ion-title>Contacts</ion-title>
+      <img (click)="addContact()" height="30px" src="https://cdn-icons-png.freepik.com/256/12657/12657672.png?semt=ais_white_label" alt="" srcset="" onmouseover="this.style.opacity='0.7';" onmouseleave="this.style.opacity='1'" />
+    </div>
   </ion-toolbar>
 </ion-header>
+<br>
+<ion-content>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div style="display: flex; margin-bottom: 10px; padding: 0px 5px; align-items: center; ">
+    <ion-searchbar placeholder="Buscar contactos..." (ionInput)="filterContacts($event)" style=" border-radius: 12px; "></ion-searchbar>
+  </div>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-list style="background: transparent; display: flex; flex-direction: column; gap: 10px; padding: 0px 10px 10px 10px;">
+    @for (contact of filteredContacts; track contact) {
+    <div (click)="detailContact(contact.id)" style="background-color: #222; box-shadow: 0 2px 6px rgba(0,0,0,0.1); border-radius: 5px; padding: 10px">
+      <div style="display: flex; flex-direction: column; gap: 5px;">
+        <strong style=" color: #555; ">👤 {{ contact.name }}</strong>
+        <span style="color: #555; ">📧 {{ contact.email }}</span>
+        <span style="color: #555; ">📞 {{ contact.phone }}</span>
+      </div>
+    </div>
+    }
+  </ion-list>
+
+  @if (filteredContacts.length === 0) {
+  <ion-text>
+    <p style="text-align:center; color:#888; margin-top:30px;">No se encontraron contactos.</p>
+  </ion-text>
+  }
+
 </ion-content>
