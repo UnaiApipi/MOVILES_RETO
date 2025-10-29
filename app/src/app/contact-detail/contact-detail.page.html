@@ -6,11 +6,8 @@
       <!-- Botón Back siempre visible -->
       <ion-button (click)="goBack()">Back</ion-button>
 
-      <!-- Botones condicionales -->
-      @if (!modifyMode) {
-      <ion-button (click)="changeModifyMode()">Edit</ion-button>
-      <ion-button (click)="clearContact()">Clear</ion-button>
-      }
+      <!-- Botones condicionales (solo fuera de modifyMode) -->
+     
     </div>
   </ion-toolbar>
 </ion-header>
@@ -19,67 +16,53 @@
 
   <!-- Modo vista -->
   @if (!modifyMode) {
-  <div style="padding: 20px;">
-    <h2>Contact</h2>
+    <div style="padding: 20px;">
+      <h2>Contact</h2>
 
-    <ion-item>
-      <ion-label position="stacked">Name</ion-label>
-      <p>{{ name }}</p>
-    </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Name</ion-label>
+        <p>{{ name }}</p>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Email</ion-label>
-      <p>{{ email }}</p>
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <p>{{ email }}</p>
+      </ion-item>
 
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked">Phone</ion-label>
-      <p>{{ phone }}</p>
-
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked">Type</ion-label>
-      <p>{{ type }}</p>
-    </ion-item>
-
-
-  </div>
-  } @else {
-  <!-- Modo edición -->
-  <div style="padding: 20px;">
-    <h2>Edit Contact</h2>
-
-    <ion-item>
-      <ion-label position="stacked">Name</ion-label>
-      <ion-input [(ngModel)]="name" placeholder="Enter name">
-      </ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="email" placeholder="Enter email">
-      </ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked">Phone</ion-label>
-      <ion-input type="tel" [(ngModel)]="phone" placeholder="Enter phone">
-      </ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked">Type</ion-label>
-      <ion-input [(ngModel)]="type" placeholder="Enter type">
-      </ion-input>
-    </ion-item>
-
-    <div style="margin-top:16px;">
-      <ion-button expand="block" color="primary" (click)="saveContact()">Save</ion-button>
-      <ion-button expand="block" color="medium" (click)="cancel()">Cancel</ion-button>
+      <ion-item>
+        <ion-label position="stacked">Phone</ion-label>
+        <p>{{ phone }}</p>
+      </ion-item>
+      <div style="display: flex; justify-content: end; margin-top: 5px;">
+        <ion-button (click)="changeModifyMode()">Edit</ion-button>
+        <ion-button (click)="clearContact()" color="danger">Clear</ion-button>
+      </div>
     </div>
-  </div>
-  }
+  } @else {
+    <!-- Modo edición -->
+    <div style="padding: 20px;">
+      <h2>Edit Contact</h2>
 
+      <ion-item>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input [(ngModel)]="name" placeholder="Enter name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input type="email" [(ngModel)]="email" placeholder="Enter email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Phone</ion-label>
+        <ion-input type="tel" [(ngModel)]="phone" placeholder="Enter phone"></ion-input>
+      </ion-item>
+
+      <div style="margin-top:16px;">
+        <ion-button expand="block" color="primary" (click)="modifyContact()">Save</ion-button>
+        <ion-button expand="block" color="medium" (click)="cancel()" color="danger">Cancel</ion-button>
+      </div>
+      
+    </div>
+  }
 </ion-content>

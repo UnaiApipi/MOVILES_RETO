@@ -34,7 +34,7 @@ export class Tab1Page {
         this.contacts = contacts;
         this.filteredContacts = contacts;
         console.log(contacts);
-        
+
       },
       error: (err) => {
         console.error('Error al cargar contactos', err);
@@ -43,15 +43,16 @@ export class Tab1Page {
   }
 
   filterContacts(event: any) {
-
     const value = event.detail.value?.toLowerCase() || '';
-    this.filteredContacts = this.contacts.filter(
-      contact =>
-        contact.name.toLowerCase().includes(value) ||
-        contact.email.toLowerCase().includes(value) ||
-        contact.phone.toLowerCase().includes(value)
+
+    this.filteredContacts = this.contacts.filter(contact =>
+      (contact?.name && contact.name?.toLowerCase().includes(value)) ||
+      (contact?.email && contact.email?.toLowerCase().includes(value)) ||
+      (contact?.phone && contact.phone?.toLowerCase().includes(value))
     );
-  }
+  } 
+
+
 
   addContact() {
     this.router.navigate(['/contact/create']);
