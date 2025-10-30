@@ -10,6 +10,8 @@ import {
 import { GetContacts } from '../api/contacts';
 import { Router } from '@angular/router';
 import { ToastService } from '../services/toast';
+import { LogoutComponent } from '../components/logout/logout.component';
+import { VerifyToken } from '../services/verify-token';
 
 
 
@@ -21,12 +23,12 @@ import { ToastService } from '../services/toast';
   imports: [
     CommonModule, FormsModule,
     IonHeader, IonToolbar, IonTitle, IonContent,
-    IonItem, IonLabel, IonInput, IonButton, IonIcon
+    IonItem, IonLabel, IonInput, IonButton, IonIcon, LogoutComponent
   ]
 })
 
 
-export class ContactDetailPage {
+export class ContactDetailPage implements OnInit {
 
   modifyMode: boolean = false;
 
@@ -36,11 +38,15 @@ export class ContactDetailPage {
 
   contact: any = {};
 
+  
+
   constructor(
     private getContactsService: GetContacts,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private verifyToken: VerifyToken
   ) {
+
     
     const url = this.router.url;
     const segments = url.split('/').filter(s => s.length > 0);
@@ -66,6 +72,11 @@ export class ContactDetailPage {
         console.error('Error al cargar contacto', err);
       },
     });
+  }
+
+  
+  ngOnInit() {
+    this.verifyToken.ngOnInit();
   }
 
 

@@ -26,36 +26,23 @@ export class LoginPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    localStorage.setItem('token', '');
   }
 
   async onSubmit() {
     
-    if (this.username && this.password) {
-      this.loginService.authenticate(this.username, this.password).subscribe({
-        next: (data: any) => {
-          if (data && data.success) {
-            this.toastService.showToast('Login successful!', 2000, 'bottom', 'success');
-            localStorage.setItem('token', {name: "unai", id: 12345}.toString());
-            this.router.navigate(['/contacts']);
-          } else {
-            this.toastService.showToast('Login failed. Please check your credentials.', 2000, 'bottom', 'danger');
-
-          }
-        },
-        error: (error) => {
-          // Maneja errores de la solicitud HTTP
-          this.toastService.showToast('Login failed. Server error: ' + error.message, 2000, 'bottom', 'danger');
-
-        },
-        complete: () => {
-          console.log('Solicitud completada');
-        }
-      });
-    } else {
-            this.router.navigate(['/contacts']);
-
-      this.toastService.showToast('Please enter username and password', 2000, 'bottom', 'danger');
-    }
+    this.loginService.login(this.username, this.password).subscribe({
+      next: async (response) => {
+        console.log('Login successful', response);  
+        localStorage.setItem('token', `${response.username}-${new Date().getTime()}`);
+        await this.toastService.showToast('Login successful', 2000, 'bottom', 'success');
+        this.router.navigate(['/contacts']);
+      },
+      error: async (error) => {
+        console.error('Login failed', error);
+        await this.toastService.showToast('Login failed: ' + error.error.message, 3000, 'bottom', 'danger');
+      }
+    });
   }
 
 }

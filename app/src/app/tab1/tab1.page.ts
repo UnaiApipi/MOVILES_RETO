@@ -4,6 +4,8 @@ import { ExploreContainerComponent } from '../explore-container/explore-containe
 import { CommonModule } from '@angular/common';
 import { GetContacts } from '../api/contacts';
 import { Router } from '@angular/router';
+import { LogoutComponent } from '../components/logout/logout.component';
+import { VerifyToken } from '../services/verify-token';
 
 interface Contact {
   id: number;
@@ -16,7 +18,7 @@ interface Contact {
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, ExploreContainerComponent, IonItem, IonList, IonSearchbar, IonText, IonLabel, IonButton],
+  imports: [LogoutComponent,IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, ExploreContainerComponent, IonItem, IonList, IonSearchbar, IonText, IonLabel, IonButton],
 })
 export class Tab1Page {
 
@@ -26,9 +28,13 @@ export class Tab1Page {
   filteredContacts: Contact[] = [];
   searchTerm: string = '';
 
-  constructor(private getContactsService: GetContacts, private router: Router) { }
+  constructor(private getContactsService: GetContacts, private router: Router, private verifyToken: VerifyToken) { }
 
   ngOnInit() {
+
+    this.verifyToken.ngOnInit();
+    
+
     this.getContactsService.getContacts().subscribe({
       next: (contacts) => {
         this.contacts = contacts;

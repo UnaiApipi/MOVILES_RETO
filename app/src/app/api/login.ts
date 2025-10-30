@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class Login {
+export class Login  {
 
-  private apiUrl = 'https://example.com/api/login';
+  private apiUrl = 'http://127.0.0.1:5000/login';
 
-  constructor(private http: HttpClient) {  }
+  constructor(private http: HttpClient) { }
 
-  authenticate(username: string, password: string) {
-    console.log("username:", username, "password:", password);
-    
+  login(username: string, password: string): Observable<any> {
     return this.http.post(this.apiUrl, { username, password });
   }
 
 
 
 
-  
+
+
 }

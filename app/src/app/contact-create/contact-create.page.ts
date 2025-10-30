@@ -5,6 +5,8 @@ import { IonInput, IonSelectOption, IonLabel, IonItem, IonContent, IonHeader, Io
 import { Router } from '@angular/router';
 import { GetContacts } from '../api/contacts';
 import { ToastService } from '../services/toast';
+import { LogoutComponent } from '../components/logout/logout.component';
+import { VerifyToken } from '../services/verify-token';
 
 
 export interface Contact {
@@ -18,19 +20,19 @@ export interface Contact {
   templateUrl: './contact-create.page.html',
   styleUrls: ['./contact-create.page.scss'],
   standalone: true,
-  imports: [IonInput, IonSelectOption, IonLabel, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonIcon]
+  imports: [LogoutComponent, IonInput, IonSelectOption, IonLabel, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonIcon]
 })
 
 export class ContactCreatePage implements OnInit {
 
-  constructor(private router: Router, private getContactsService: GetContacts, private toastService: ToastService) { }
+  constructor(private router: Router, private getContactsService: GetContacts, private toastService: ToastService, private verifyToken: VerifyToken) { }
 
   name: string = '';
   email: string = '';
   phone: string = '';
 
   ngOnInit() {
-
+    this.verifyToken.ngOnInit();
   }
 
   addContact() {
